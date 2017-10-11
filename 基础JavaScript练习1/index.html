@@ -1,0 +1,75 @@
+<!doctype html>
+<!-- 百度前端技术学院 － 任务四：基础JavaScript练习（一） -->
+<html lang='en'>
+<head>
+    <meta charset="UTF-8">
+    <title>基础JavaScript练习（一）</title>
+<style>
+    #outputNum {
+        padding:0px;
+    }
+    #outputNum li {
+        background: red;
+        display: inline;
+        margin: 5px;
+        padding: 10px;
+        color: white;
+    }
+    #outputNum li:hover {
+        cursor: pointer;
+    }
+</style>
+</head>
+
+<body>
+<input id="inputNum" type="text">
+<button id="leftIn">左侧入</button> <button id="rightIn">右侧入</button> <button id="leftOut">左侧出</button> <button id="rightOut">右侧出</button> 
+<ul id="outputNum"></ul>
+
+<script type="text/javascript">
+var inputNum = document.getElementById("inputNum");
+var leftIn = document.getElementById("leftIn");
+var leftOut = document.getElementById("leftOut");
+var rightIn = document.getElementById("rightIn");
+var rightOut = document.getElementById("rightOut");
+var outputNum = document.getElementById("outputNum");
+
+function addToList(direction, num) {
+    var newLI = document.createElement("LI"); 
+    var textnode = document.createTextNode(num);
+    newLI.appendChild(textnode);
+    if(num == ""){
+        alert("Please enter a number.");
+    } else
+    if (isNaN(parseFloat(num))) //validate numeric input
+    {
+        alert("Input invaild. Numbers allowed only.")
+    } else    
+    if (direction=="left") {
+        outputNum.insertBefore(newLI,outputNum.firstChild);
+    } else
+    if (direction == "right") {
+        outputNum.appendChild(newLI);
+    }
+    inputNum.value="";
+}
+
+function removeFromList(direction,node) {
+    if (direction == "left") {
+        outputNum.removeChild(outputNum.firstChild);
+    } else
+    if (direction == "right") {
+        outputNum.removeChild(outputNum.lastChild);
+    } else {
+        outputNum.removeChild(node);
+    }
+}
+
+leftIn.onclick = function(){addToList("left",inputNum.value)};
+rightIn.onclick = function(){addToList("right",inputNum.value)};
+leftOut.onclick = function(){removeFromList("left")};
+rightOut.onclick = function(){removeFromList("right")};
+outputNum.onclick = function(){removeFromList("",event.target)};
+</script>
+</body>
+</html>
